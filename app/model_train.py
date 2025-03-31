@@ -1,20 +1,20 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 from scipy.sparse import coo_matrix
 from implicit.als import AlternatingLeastSquares
 import joblib
 
 
-data_frame = "data/ratings.csv"
+data_fname = "data/ratings.csv"
 item_fname = "data/movies_final.csv"
 saved_model_fname = "data/finalized_model.sav"
 weight = 10
 
 def model_train():
-    rating_df = pd.read_csv(data_frame)
+    rating_df = pd.read_csv(data_fname)
     rating_df['userId'] = rating_df['userId'].astype("category")
     rating_df['movieId'] = rating_df['movieId'].astype("category")
-    rating_matrix = coo_matrix( #희소행렬 sqarse matrix
+    rating_matrix = coo_matrix(  # 희소행렬 sparse matrix
         (
             rating_df['rating'].astype(np.float32),
             (
